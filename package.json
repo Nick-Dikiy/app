@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nick-Dikiy/app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nick-Dikiy/app/issues"
+  },
+  "homepage": "https://github.com/Nick-Dikiy/app#readme",
+  "devDependencies": {
+    "webpack": "^3.6.0"
+  }
+}
