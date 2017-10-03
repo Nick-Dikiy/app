@@ -4,7 +4,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: __dirname + '/src',
@@ -27,6 +27,10 @@ module.exports = {
 
         new ExtractTextPlugin("./css/styles.css"),
 
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: '../index.html'
+        })
     ],
 
     module:{
