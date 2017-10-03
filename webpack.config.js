@@ -1,8 +1,9 @@
 'use strict';
 const NODE_ENV = process.env.NODE_ENV || 'development';
+
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 module.exports = {
@@ -23,6 +24,7 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
+
         new ExtractTextPlugin("./css/styles.css"),
 
     ],
@@ -43,7 +45,14 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: "css-loader"
+                    use:
+                        {
+                            loader: "css-loader",
+                            options:
+                                {
+                                    minimize: true
+                                }
+                        }
                 })
             },
 
@@ -51,15 +60,35 @@ module.exports = {
                 test: /\.(scss|sass)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
+                    use:[
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                minimize: true
+                            }
+                        },
+
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                minimize: true
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    path: __dirname + '/postcss.config.js'
+                                }
+                            }
+                        }
+
+                    ]
                 })
             }
-
         ]
     }
 };
-
-
 
 if (NODE_ENV == 'production'){
     module.exports.plugins.push(
