@@ -1,8 +1,8 @@
 'use strict';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require('autoprefixer');
 
 
 module.exports = {
@@ -23,6 +23,7 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
+        new ExtractTextPlugin("./css/styles.css"),
 
     ],
 
@@ -39,22 +40,19 @@ module.exports = {
                 }
             },
             {
-                 test: /\.css$/,
-                 use: [
-                     'style-loader',
-                     'css-loader'
-                 ]
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
 
             {
                 test: /\.(scss|sass)$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
             }
 
         ]
