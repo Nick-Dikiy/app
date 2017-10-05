@@ -4,18 +4,21 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: __dirname + '/src',
+
     entry:{
-        app: "./app.js"
+        app: "./index.js"
     },
+
     output: {
         path: __dirname + '/public',
-        filename: "[name].js",
+        filename: "./js/[name].js",
         library: "[name]"
     },
+
     watch: NODE_ENV == 'development',
 
     devtool: NODE_ENV == 'development' ? "cheap-inline-module-source-map" : false,
@@ -28,23 +31,27 @@ module.exports = {
         new ExtractTextPlugin("./css/styles.css"),
 
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: '../index.html'
+            hash: true,
+            title: 'My Awesome application',
+            myPageHeader: 'Hello World',
+            template: '../src/index.html',
+            filename: '../public/index.html'
         })
     ],
 
     module:{
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['env', "es2015", "react"]
                     }
                 }
             },
+
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -56,7 +63,7 @@ module.exports = {
                                 {
                                     minimize: true
                                 }
-                        }
+                        },
                 })
             },
 
@@ -91,6 +98,12 @@ module.exports = {
                 })
             }
         ]
+    },
+
+    devServer: {
+        contentBase: __dirname + "public",
+        compress: true,
+        port: 9000
     }
 };
 
@@ -106,3 +119,5 @@ if (NODE_ENV == 'production'){
 
     )
 };
+
+// module.exports = config

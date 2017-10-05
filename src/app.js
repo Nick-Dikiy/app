@@ -1,10 +1,16 @@
 'use strict';
+import React, { Component } from 'react';
 
+import  Dropdown from  './Dropdown';
 
-import './css/main.css';
-import './scss/main.scss';
+class App extends Component{
+    render(){
+        return (
+            <div>
+                <Dropdown />
+            </div>
+        );
+    }
+}
 
-let rightNow = Date('MMMM Do YYYY, h:mm:ss a');
-
-let a=5;
-console.log('production: ' + rightNow);
+export default App;
