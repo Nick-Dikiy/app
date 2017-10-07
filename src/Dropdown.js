@@ -4,17 +4,25 @@ import React, { Component } from 'react';
 
 
 class Dropdown extends Component{
+    constructor(props){
+        super(props);
+        this.state = { isOpened: false };
+    }
+
+    toggleState() {
+        this.setState({ isOpened: !this.state.isOpened });
+    }
+
     render(){
-        constructor(props){
-            super(props);
-            this.state = { isOpened: false };
+        console.log('isOp ', this.state.isOpened);
+        let dropDownText;
+        if ( this.state.isOpened ){
+            dropDownText = <div>lkadjf</div>;
         }
-
-        toggleState(){
-            this.toggleState({isOpened: !this.state.isOpened});
-        }
-
-        return <div onclick={this.toggleState}>Its drop down</div>
+        return <div onClick={this.toggleState.bind(this)}>
+            Its drop down
+            {dropDownText}
+        </div>;
     }
 }
 

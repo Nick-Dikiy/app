@@ -36,7 +36,8 @@ module.exports = {
             myPageHeader: 'Hello World',
             template: '../src/index.html',
             filename: '../public/index.html'
-        })
+        }),
+
     ],
 
     module:{
@@ -47,8 +48,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', "es2015", "react"]
-                    }
+                        presets: ['env', "es2016", 'stage-2',  "react"],
+                    },
                 }
             },
 
@@ -101,7 +102,7 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: __dirname + "public",
+        contentBase: __dirname + '/public',
         compress: true,
         port: 9000
     }
